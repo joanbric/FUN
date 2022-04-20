@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AR 1</title>
+        <!-- <script src="./three.js"></script> -->
+        <!-- <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script> -->
+
+        <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+        <style>
+            .arjs-loader {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.8);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .arjs-loader div {
+                text-align: center;
+                font-size: 1.25em;
+                color: white;
+            }
+        </style>
+    </head>
+    <body style="margin: 0px; overflow: hidden">
+        <!-- minimal loader shown until image descriptors are loaded -->
+        <div class="arjs-loader">
+            <div>Loading, please wait...</div>
+        </div>
+        <a-scene
+            vr-mode-ui="enabled: false;"
+            renderer="logarithmicDepthBuffer: true; precision: medium;"
+            embedded
+            arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+        >
+            <a-assets>
+                <a-asset-item
+                    id="sofa-obj"
+                    src="./685833a58cb1fc32af06e7739d92f357/Sofa WILKRAFT N050122/Sofa WILKRAFT N050122.obj"
+                ></a-asset-item>
+             </a-assets>
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+            <!-- url="https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex" -->
+            <a-nft
+                type="nft"
+                url="./huellas"
+                smooth="true"
+                smoothCount="10"
+                smoothTolerance=".01"
+                smoothThreshold="5"
+            >
+                <!-- https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf -->
+
+                <!-- <a-entity obj-model="obj: #sofa-obj" scale="-3 -3 -1" position="0 30 -20"></a-entity> -->
+
+                <a-video src="./mov_bbb.mp4"
+                position='50 150 -100'
+                rotation='90 0 180'
+                width='300'
+                height='175'
+                ></a-video>
+
+                <!-- <a-entity
+                gltf-model="https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+                scale="5 5 5"
+                position="15 30 -10"
+              >
+              </a-entity> -->
+
+            </a-nft>
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>

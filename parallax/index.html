@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{
+                background-color: #333;
+                color: white;
+                height: 150vh;
+                overflow: visible;
+            }
+
+            ul{
+                list-style: none;
+                display: flex;
+                justify-content: center;
+                font-size: 7rem;
+                font-weight: bolder;
+                /* margin-top: 300px; */
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <ul>
+                <li class="parallax first">Par</li>
+                <li class="parallax second">al</li>
+                <li class="parallax third">lax</li>
+            </ul>
+        </div>
+
+
+        <script>
+            const par = document.querySelector('.parallax.first')
+            const al = document.querySelector('.parallax.second')
+            const lax = document.querySelector('.parallax.third')
+
+
+            window.addEventListener('scroll', (e) => {
+                const scroll_position = window.scrollY
+                par.style.transform = `translateY(${scroll_position*-1.5}px)`
+                lax.style.transform = `translateY(${scroll_position*2}px)`
+              console.log(scroll_position)
+            })
+        </script>
+    </body>
+</html>

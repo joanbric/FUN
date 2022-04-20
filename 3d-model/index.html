@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Me 3D</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+
+        <script src="./three.js"></script>
+
+        <script type="module">
+            import GLTFLoader from "./GLTFLoader.js";
+
+            import Stats from "./libs/stats.module.js";
+
+            const container = document.getElementById("container");
+            let stats, clock;
+            let camera, scene, renderer, elf;
+
+            function init() {
+                scene = new THREE.Scene();
+                clock = new THREE.Clock();
+
+                camera = new THREE.PerspectiveCamera(
+                    4,
+                    window.innerWidth / window.innerHeight,
+                    10,
+                    15
+                );
+                camera.position.set(4.5, 4.5, 10);
+                camera.lookAt(-3, -1, -8);
+
+                // loading manager
+
+                const loadingManager = new THREE.LoadingManager(function () {
+                    scene.add(elf);
+                });
+
+                // GLTF Loader
+
+                const loader = new GLTFLoader(loadingManager);
+
+                loader.load(
+                    // resource URL
+                    "me.glb",
+                    // called when the resource is loaded
+                    function (gltf) {
+                        scene.add(gltf.scene);
+
+                        gltf.animations; // Array<THREE.AnimationClip>
+                        elf = gltf.scene; // THREE.Group
+                        gltf.scenes; // Array<THREE.Group>
+                        gltf.cameras; // Array<THREE.Camera>
+                        gltf.asset; // Object
+                    },
+                    // called while loading is progressing
+                    function (xhr) {
+                        console.log(
+                            (xhr.loaded / xhr.total) * 100 + "% loaded"
+                        );
+                    },
+                    // called when loading has errors
+                    function (error) {
+                        console.log("An error happened");
+                    }
+                );
+
+                //
+
+                const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(
+                    0xffffff,
+                    0.8
+                );
+                directionalLight.position.set(1, 1, 0).normalize();
+                scene.add(directionalLight);
+
+                //
+
+                renderer = new THREE.WebGLRenderer();
+                renderer.outputEncoding = THREE.sRGBEncoding;
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+
+                //
+
+                stats = new Stats();
+                container.appendChild(stats.dom);
+
+                //
+
+                window.addEventListener("resize", onWindowResize);
+            }
+            
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function render() {
+                const delta = clock.getDelta();
+                
+                if (elf !== undefined) {
+                    elf.rotation.y += delta * 0.5;
+                }
+                
+                renderer.render(scene, camera);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                render();
+                stats.update();
+            }
+
+            init();
+            animate();
+        </script>
+    </body>
+</html>

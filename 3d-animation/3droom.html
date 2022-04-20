@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Room</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        height: 100vh;
+        overflow: hidden;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img{
+        width: 20rem;
+        max-width: 95%;
+        max-height: 95vh;
+        
+        transform: perspective(3000);
+
+        position: absolute;
+        
+        box-shadow: 0px 0 20px rgba(0, 0, 0, .5);
+
+    
+    }
+
+    .dragPad{
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        
+    }
+    #ima1{transform: translateX(200px);}
+    </style>
+<body>
+    <!-- <img id="ima1" src="https://imgs.search.brave.com/VKoJVGS_Kdk6_9OOZB1CbbQRojRdyhkGTqWuZ06x2Qk/rs:fit:1200:1200:1/g:ce/aHR0cDovL29yaWcw/NS5kZXZpYW50YXJ0/Lm5ldC82MjRkL2Yv/MjAxNC8zMDAvMC9h/L19kc2MzOTAwX2J5/X2tleXNlcnNvemUy/MjgzLWQ4NGJwNWwu/anBn" alt="" srcset="">
+    <img id="ima2" src="https://imgs.search.brave.com/VKoJVGS_Kdk6_9OOZB1CbbQRojRdyhkGTqWuZ06x2Qk/rs:fit:1200:1200:1/g:ce/aHR0cDovL29yaWcw/NS5kZXZpYW50YXJ0/Lm5ldC82MjRkL2Yv/MjAxNC8zMDAvMC9h/L19kc2MzOTAwX2J5/X2tleXNlcnNvemUy/MjgzLWQ4NGJwNWwu/anBn" alt="" srcset=""> -->
+   
+    <video src="https://github.com/AR-js-org/AR.js/blob/master/aframe/examples/image-tracking/nft-video/mov_bbb.mp4?raw=true" controls></video>
+   <div class="dragPad"></div>
+   <script>
+        let image1 = document.querySelector('#ima1');
+        let image2 = document.querySelector('#ima2');
+        let video1 = document.querySelector('video');
+        document.body.addEventListener('mousemove', (e) => {
+            const doc_h = document.body.clientHeight;
+            const doc_w = document.body.clientWidth;
+
+            const x = e.offsetX;
+            const y = e.offsetY;
+
+            const mid_x = doc_w / 2;
+            const mid_y = doc_h / 2;
+
+            const deg_x = (x - mid_x) / mid_x * 45;
+            const deg_y = (y - mid_y) / mid_y * 45;
+
+
+            video1.style.transform = `skew(${deg_x}deg, ${deg_y}deg)`;
+            image2.style.transform = `skew(${deg_x}deg, ${deg_y}deg) translate(100px, 300px)`;
+          
+        })
+    </script>
+</body>
+</html>
