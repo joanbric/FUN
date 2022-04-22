@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #ad4F0D;
+    font-family: 'Quicksand', sans-serif;
+}
+
+header{
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    background-color: #52B0F2;
+}
+
+header .options span{
+    text-decoration: none;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+main{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+main .color-container{
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+
+    font-size: 3rem;
+    font-weight: bold;
+    color:#52B0F2;
+}
+.action-buttons{
+    margin-top: 20px;
+}
+
+.action-buttons button{
+    transition: transform .2s ease-in;
+    background: none;
+    color: #0f5485;
+    border: 1.5px solid #0f5485;
+    border-radius: 3px;
+    padding: 5px 8px;
+    margin: 0 5px;
+    position: relative;
+
+    
+}
+
+.action-buttons button::before{
+    
+ 
+    clip-path: circle(0%);
+    transition: clip-path .2s ease-in;
+    content: "";
+    background-color: #fff;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.action-buttons button:hover::before{
+    clip-path: circle(100%);
+}
+.action-buttons button:hover{
+
+    transform: scale(1.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, .2);
+
+    cursor: pointer;
+}
+
+.action-buttons button:active{
+
+    transform: scale(1.05);
+    
+}
