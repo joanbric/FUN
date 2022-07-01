@@ -1,0 +1,79 @@
+:root {
+    --clr-dot: #00ff00;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #333;
+    color: white;
+}
+
+h1,
+section.infinity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+section.infinity {
+    position: absolute;
+    inset: 0;
+}
+
+.infty-container {
+    display: flex;
+    gap: 70px;
+}
+
+.circle {
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+.circle span {
+    position: absolute;
+    transform: rotate(calc(126deg + 18deg * var(--i)));
+    width: 100%;
+    height: 100%;
+}
+.circle span::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--clr-dot);
+    box-shadow: 0 0 10px var(--clr-dot), 0 0 20px var(--clr-dot),
+        0 0 40px var(--clr-dot), 0 0 60px var(--clr-dot),
+        0 0 80px var(--clr-dot), 0 0 100px var(--clr-dot);
+
+    transform: scale(0.1);
+    animation: animate 4s linear infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1);
+    }
+
+    50%,
+    to {
+        transform: scale(0.1);
+    }
+}
+
+.circle:nth-child(2) {
+    transform: rotate(-180deg);
+}
+
+.circle:nth-child(2) span::before {
+    animation-delay: calc(-0.1s * var(--i));
+}
